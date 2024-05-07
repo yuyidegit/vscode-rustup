@@ -87,7 +87,7 @@ async function checkUpdates() {
 }
 
 async function listToolchains() {
-	let availableToolchains = (await collectStdout(['toolchain', 'list'])).split('\n');
+	let availableToolchains = (await collectStdout(['toolchain', 'list'])).split('\n').map((line) => line.trim().split(' ')[0]);
 	let selected = await vscode.window.showQuickPick(availableToolchains, { "title": "Change active toolchain?" });
 	if (selected && vscode.window.activeTextEditor !== undefined) {
 		let currentWorkspacePath = vscode.workspace.getWorkspaceFolder(vscode.window.activeTextEditor.document.uri)?.uri.fsPath;
